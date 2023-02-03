@@ -2,6 +2,8 @@
 
 # ボウリングスコアを計算
 class BowlingScore
+  # @param knocked_pins [Array] 1ゲームでボールの投球ごとに倒したピン数の配列
+  # @return [Integer] 1ゲームの総合スコア 
   def self.calculate(knocked_pins)
     @knocked_pins = knocked_pins
 
@@ -35,15 +37,20 @@ class BowlingScore
     @result
   end
 
+  # フレームのカウントを1増やし、フレームでの投球数をリセットする
   def self.change_frame
     @frame_count += 1
     @throw_count = 1
   end
 
+  # ストライクが出た時のボーナススコアを総合スコアに追加する
+  # @param index [Integer] ストライクが出た投球数から1引いた値
   def self.strike(index)
     @result += @knocked_pins[index + 1] + @knocked_pins[index + 2]
   end
 
+  # スペアが出た時のボーナススコアを総合スコアに追加する
+  # @param index [Integer] スペアが出た投球数から1引いた値
   def self.spare(index)
     @result += @knocked_pins[index + 1]
   end
